@@ -42,16 +42,9 @@ submit.addEventListener("click", () => {
     count: count.value,
     category: category.value,
   };
-
+  dataPro.push(newPro);
   localStorage.setItem("Product", JSON.stringify(dataPro));
 
-  if (newPro.count > 1) {
-    for (let i = 0; i < newPro.count; i++) {
-      dataPro.push(newPro);
-    }
-  } else {
-    dataPro.push(newPro);
-  }
   clearData();
   showData();
 });
@@ -98,7 +91,7 @@ function showData() {
 
   let deleteBtn = document.getElementById("deleteAll");
   if (dataPro.length > 0) {
-    deleteBtn.innerHTML = `<button onclick="deleteAll()">(${dataPro.length}) حذف الكل</button>`;
+    deleteBtn.innerHTML = `<button onclick="deleteAll()">حذف الكل</button>`;
   } else {
     deleteBtn.innerHTML = "";
   }

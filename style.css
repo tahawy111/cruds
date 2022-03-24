@@ -47,7 +47,7 @@ input:focus {
   border-radius: 5px;
 }
 #total::before {
-  content: "Total: ";
+  content: "الاجمالي: ";
 }
 button {
   width: 100%;
