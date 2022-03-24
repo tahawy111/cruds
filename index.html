@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="cairo.css" />
     <title>ادارة المنتجات</title>
   </head>
   <body>
@@ -15,19 +14,67 @@
         <p>Product Management System</p>
       </div>
       <div class="inputs">
-        <input type="text" placeholder="Title" id="title" />
+        <input type="text" placeholder="اسم المنتج" id="title" />
         <div class="price">
-          <input type="number" placeholder="Price" id="price" />
-          <input type="number" placeholder="Taxes" id="taxes" />
-          <input type="number" placeholder="Ads" id="ads" />
-          <input type="number" placeholder="Discount" id="discount" />
-          <small id="total">582555</small>
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="السعر"
+            id="price"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="الضريبة"
+            id="taxes"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="الاعلانات"
+            id="ads"
+          />
+          <input
+            onkeyup="getTotal()"
+            type="number"
+            placeholder="الخصم"
+            id="discount"
+          />
+          <small id="total"></small>
         </div>
-        <input type="number" placeholder="Count" id="count" />
-        <input type="text" placeholder="Category" id="category" />
-        <button id="submit">Create</button>
+        <input type="number" placeholder="العدد" id="count" />
+        <input type="text" placeholder="الفئة" id="category" />
+        <button id="submit">انشاء</button>
       </div>
-      <div class="outputs"></div>
+      <div class="outputs">
+        <div class="searchBlock">
+          <input type="text" id="search" placeholder="البحث" />
+          <div class="btnSearch">
+            <button id="searchTitle">البحث بالاسم</button>
+            <button id="searchCategory">البحث بالفئة</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="deleteAll"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>اسم المنتج</th>
+            <th>السعر</th>
+            <th>الضريبة</th>
+            <th>الاعلانات</th>
+            <th>الخصم</th>
+            <th>الكل</th>
+            <th>الفئة</th>
+            <th>تعديل</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
     </div>
     <script src="./main.js"></script>
   </body>
