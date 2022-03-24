@@ -68,7 +68,7 @@ if (localStorage.Product != null) {
 function showData() {
   let table = ``;
   for (let i = 0; i < dataPro.length; i++) {
-    let index = i + 1;
+    // let index = i + 1;
     table += `
             <tr>
             <td>${i + 1}</td>
@@ -83,15 +83,18 @@ function showData() {
             <td><button onclick="deleteData(${i})" id="delete">Delete</button></td>
           </tr>
   `;
-    const btnDelete = document.getElementById("deleteAll");
-    if (dataPro.length > 0) {
-      btnDelete.innerHTML = `<button onclick="deleteAll()">حذف الكل</button>`;
-    }
   }
   document.querySelector(`#tbody`).innerHTML = table;
   window.onload = function () {
     table = dataPro;
   };
+
+  let deleteBtn = document.getElementById("deleteAll");
+  if (dataPro.length > 0) {
+    deleteBtn.innerHTML = `<button onclick="deleteAll()">حذف الكل</button>`;
+  } else {
+    deleteBtn.innerHTML = "";
+  }
 }
 
 // Delete
@@ -103,6 +106,7 @@ function deleteData(i) {
 
 function deleteAll() {
   localStorage.clear();
+  dataPro.splice(0);
   showData();
 }
 
