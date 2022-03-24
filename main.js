@@ -98,7 +98,7 @@ function showData() {
 
   let deleteBtn = document.getElementById("deleteAll");
   if (dataPro.length > 0) {
-    deleteBtn.innerHTML = `<button onclick="deleteAll()">حذف الكل</button>`;
+    deleteBtn.innerHTML = `<button  onclick="deleteAll()">حذف الكل</button>`;
   } else {
     deleteBtn.innerHTML = "";
   }
@@ -121,3 +121,12 @@ function deleteAll() {
 // Update
 // Search
 // Clean Data
+
+// Delete all toggle function
+let indicatorContainer = document.querySelector(".indicator-container");
+let indicator = document.querySelector(".indicator");
+let deleteBtn = document.getElementById("deleteAll");
+indicator.addEventListener("click", () => {
+  deleteBtn.querySelector("button").toggleAttribute("disabled");
+  indicatorContainer.classList.toggle("active");
+});

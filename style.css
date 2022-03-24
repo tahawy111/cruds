@@ -64,6 +64,7 @@ button:hover {
   background: #800116;
   letter-spacing: 1px;
 }
+
 .btnSearch {
   display: flex;
   justify-content: space-between;
@@ -88,4 +89,42 @@ table tr {
 
 #deleteAll button {
   margin-top: 10px;
+}
+#deleteAll button:disabled {
+  cursor: no-drop;
+  background: rgba(245, 245, 245, 0.246);
+  color: rgba(255, 255, 255, 0.3);
+}
+#deleteAll button:disabled:hover {
+  letter-spacing: normal;
+}
+
+.indicator {
+  width: 60px;
+  height: 30px;
+  background: #000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 -5px 10px rgba(255, 255, 255, 0.1),
+    0 5px 10px rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: all ease 0.3s;
+}
+.indicator::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 20px;
+}
+.indicator-container {
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  gap: 10px;
+}
+.indicator-container.active .indicator::before {
+  left: 0;
 }
