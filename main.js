@@ -42,7 +42,14 @@ submit.addEventListener("click", () => {
     count: count.value,
     category: category.value,
   };
-  dataPro.push(newPro);
+
+  if (newPro.count > 1) {
+    for (let i = 0; i < newPro.count; i++) {
+      dataPro.push(newPro);
+    }
+  } else {
+    dataPro.push(newPro);
+  }
   localStorage.setItem("Product", JSON.stringify(dataPro));
 
   clearData();
@@ -71,7 +78,7 @@ function showData() {
     // let index = i + 1;
     table += `
             <tr>
-            <td>${i + 1}</td>
+            <td>${i}</td>
             <td>${dataPro[i].title}</td>
             <td>${dataPro[i].price}</td>
             <td>${dataPro[i].taxes}</td>
