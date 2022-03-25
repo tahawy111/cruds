@@ -31,18 +31,21 @@
             type="number"
             placeholder="الضريبة"
             id="taxes"
+            value="0"
           />
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="الاعلانات"
             id="ads"
+            value="0"
           />
           <input
             onkeyup="getTotal()"
             type="number"
             placeholder="الخصم"
             id="discount"
+            value="0"
           />
           <small id="total"></small>
         </div>
@@ -52,10 +55,22 @@
       </div>
       <div class="outputs">
         <div class="searchBlock">
-          <input type="text" id="search" placeholder="البحث" />
+          <input
+            onkeyup="searchData(this.value)"
+            type="text"
+            id="search"
+            placeholder="البحث"
+          />
           <div class="btnSearch">
-            <button id="searchTitle">البحث بالاسم</button>
-            <button id="searchCategory">البحث بالفئة</button>
+            <button onclick="getSearchMood(this.id)" id="searchTitle">
+              البحث بالاسم
+            </button>
+            <button onclick="getSearchMood(this.id)" id="searchCategory">
+              البحث بالفئة
+            </button>
+            <button onclick="getSearchMood(this.id)" id="searchPrice">
+              البحث بالسعر
+            </button>
           </div>
         </div>
       </div>

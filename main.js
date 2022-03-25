@@ -11,6 +11,7 @@ const submit = document.getElementById("submit");
 const tbody = document.querySelector(".tbody");
 
 let mood = "create";
+let tmp;
 
 // Get total
 function getTotal() {
@@ -47,12 +48,20 @@ submit.addEventListener("click", () => {
   };
 
   // Count
-  if (newPro.count > 1) {
-    for (let i = 0; i < newPro.count; i++) {
-      dataPro.push(newPro);
+  if ((title.value != "", price.value != "")) {
+    if (mood === "create") {
+      if (newPro.count > 1) {
+        for (let i = 0; i < newPro.count; i++) {
+          dataPro.push(newPro);
+        }
+      } else {
+        dataPro.push(newPro);
+      }
+    } else {
+      dataPro[tmp] = newPro;
+      mood = "create";
+      count.style.display = "block";
     }
-  } else {
-    dataPro.push(newPro);
   }
   localStorage.setItem("Product", JSON.stringify(dataPro));
 
@@ -101,11 +110,13 @@ function showData() {
   };
 
   let deleteBtn = document.getElementById("deleteAll");
+
   if (dataPro.length > 0) {
     deleteBtn.innerHTML = `<button disabled onclick="deleteAll()">حذف الكل</button>`;
   } else {
     deleteBtn.innerHTML = "";
   }
+  getTotal();
 }
 
 // Delete
@@ -143,10 +154,94 @@ function updateData(i) {
   // total.innerHTML = dataPro[i].total;
   // Update Submit Name From (انشاء) to (تحديث)
   submit.innerHTML = "تحديث";
-  // Set Total BgColor To the Same Color
-  total.style.background = "#040";
+  // To enable getTotal() Function
   count.style.display = "none";
+  getTotal();
+  mood = "update";
+  tmp = i;
+  scroll({
+    top: 0,
+    behavior: "smooth",
+  });
 }
 
 // Search
+let searchMood = "title";
+function getSearchMood(id) {
+  let search = document.getElementById("search");
+  if (id == "searchTitle") {
+    searchMood = "title";
+    search.placeholder = "البحث بالاسم";
+  } else if (id == "searchCategory") {
+    searchMood = "category";
+    search.placeholder = "البحث بالفئة";
+  } else {
+    searchMood = "price";
+    search.placeholder = "البحث بالفئة";
+  }
+  search.focus();
+  search.value = "";
+}
+function searchData(value) {
+  let table = ``;
+  if (searchMood == "title") {
+    for (let i = 0; i < dataPro.length; i++) {
+      if (dataPro[i].title.toLowerCase().includes(value.toLowerCase())) {
+        table += `
+    <tr>
+    <td>${i}</td>
+    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].price}</td>
+            <td>${dataPro[i].taxes}</td>
+            <td>${dataPro[i].ads}</td>
+            <td>${dataPro[i].discount}</td>
+            <td>${dataPro[i].total}</td>
+            <td>${dataPro[i].category}</td>
+            <td><button onclick="updateData(${i})" id="update">تحديث</button></td>
+            <td><button onclick="deleteData(${i})" id="delete">حذف</button></td>
+            </tr>
+            `;
+      }
+    }
+  } else if (searchMood == "category") {
+    for (let i = 0; i < dataPro.length; i++) {
+      if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
+        table += `
+    <tr>
+    <td>${i}</td>
+    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].price}</td>
+            <td>${dataPro[i].taxes}</td>
+            <td>${dataPro[i].ads}</td>
+            <td>${dataPro[i].discount}</td>
+            <td>${dataPro[i].total}</td>
+            <td>${dataPro[i].category}</td>
+            <td><button onclick="updateData(${i})" id="update">تحديث</button></td>
+            <td><button onclick="deleteData(${i})" id="delete">حذف</button></td>
+            </tr>
+            `;
+      }
+    }
+  } else {
+    if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
+      table += `
+    <tr>
+    <td>${i}</td>
+    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].price}</td>
+            <td>${dataPro[i].taxes}</td>
+            <td>${dataPro[i].ads}</td>
+            <td>${dataPro[i].discount}</td>
+            <td>${dataPro[i].total}</td>
+            <td>${dataPro[i].category}</td>
+            <td><button onclick="updateData(${i})" id="update">تحديث</button></td>
+            <td><button onclick="deleteData(${i})" id="delete">حذف</button></td>
+            </tr>
+            `;
+    }
+  }
+  showData();
+
+  document.querySelector(`#tbody`).innerHTML = table;
+}
 // Clean Data

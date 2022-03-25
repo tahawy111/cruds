@@ -8,9 +8,10 @@
 body {
   background: #222;
   color: #fff;
+  scroll-behavior: smooth;
 }
 .crud {
-  width: 80%;
+  width: 95%;
   margin: auto;
 }
 .head {
@@ -35,7 +36,6 @@ input::placeholder {
 
 input:focus {
   background: #000;
-  transform: scale(1.1);
 }
 .price input {
   width: 20%;
@@ -73,6 +73,7 @@ button:hover {
   width: 45%;
 }
 table {
+  border-collapse: collapse;
   width: 100%;
   text-align: center;
 }
@@ -82,23 +83,21 @@ table th {
 table th,
 td {
   padding: 5px;
-}
-table tr {
-  border-top: 2px solid #fff;
+  border: 1px solid #fff;
 }
 
 #deleteAll button {
-  margin-top: 10px;
+  margin: 10px 0;
 }
-#deleteAll button:disabled {
+:disabled {
   cursor: no-drop;
   background: rgba(245, 245, 245, 0.246);
   color: rgba(255, 255, 255, 0.3);
 }
-#deleteAll button:disabled:hover {
+:disabled:hover {
   letter-spacing: normal;
+  background: rgba(245, 245, 245, 0.246);
 }
-
 .indicator {
   width: 60px;
   height: 30px;
@@ -127,4 +126,7 @@ table tr {
 }
 .indicator-container.active .indicator::before {
   left: 0;
+}
+#update {
+  background: #a06717;
 }
