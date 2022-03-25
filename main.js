@@ -9,6 +9,9 @@ const count = document.getElementById("count");
 const category = document.getElementById("category");
 const submit = document.getElementById("submit");
 const tbody = document.querySelector(".tbody");
+
+let mood = "create";
+
 // Get total
 function getTotal() {
   if (price.value != "") {
@@ -43,6 +46,7 @@ submit.addEventListener("click", () => {
     category: category.value,
   };
 
+  // Count
   if (newPro.count > 1) {
     for (let i = 0; i < newPro.count; i++) {
       dataPro.push(newPro);
@@ -77,19 +81,19 @@ function showData() {
   for (let i = 0; i < dataPro.length; i++) {
     // let index = i + 1;
     table += `
-            <tr>
-            <td>${i}</td>
-            <td>${dataPro[i].title}</td>
-            <td>${dataPro[i].price}</td>
+    <tr>
+    <td>${i}</td>
+    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].price}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
             <td>${dataPro[i].discount}</td>
             <td>${dataPro[i].total}</td>
             <td>${dataPro[i].category}</td>
-            <td><button id="update">Update</button></td>
-            <td><button onclick="deleteData(${i})" id="delete">Delete</button></td>
-          </tr>
-  `;
+            <td><button onclick="updateData(${i})" id="update">تحديث</button></td>
+            <td><button onclick="deleteData(${i})" id="delete">حذف</button></td>
+            </tr>
+            `;
   }
   document.querySelector(`#tbody`).innerHTML = table;
   window.onload = function () {
@@ -98,7 +102,7 @@ function showData() {
 
   let deleteBtn = document.getElementById("deleteAll");
   if (dataPro.length > 0) {
-    deleteBtn.innerHTML = `<button  onclick="deleteAll()">حذف الكل</button>`;
+    deleteBtn.innerHTML = `<button disabled onclick="deleteAll()">حذف الكل</button>`;
   } else {
     deleteBtn.innerHTML = "";
   }
@@ -117,11 +121,6 @@ function deleteAll() {
   showData();
 }
 
-// Count
-// Update
-// Search
-// Clean Data
-
 // Delete all toggle function
 let indicatorContainer = document.querySelector(".indicator-container");
 let indicator = document.querySelector(".indicator");
@@ -130,3 +129,24 @@ indicator.addEventListener("click", () => {
   deleteBtn.querySelector("button").toggleAttribute("disabled");
   indicatorContainer.classList.toggle("active");
 });
+
+// Update
+function updateData(i) {
+  // Fill The input with product Data.
+  title.value = dataPro[i].title;
+  price.value = dataPro[i].price;
+  taxes.value = dataPro[i].taxes;
+  ads.value = dataPro[i].ads;
+  discount.value = dataPro[i].discount;
+  count.value = dataPro[i].count;
+  category.value = dataPro[i].category;
+  // total.innerHTML = dataPro[i].total;
+  // Update Submit Name From (انشاء) to (تحديث)
+  submit.innerHTML = "تحديث";
+  // Set Total BgColor To the Same Color
+  total.style.background = "#040";
+  count.style.display = "none";
+}
+
+// Search
+// Clean Data
