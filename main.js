@@ -48,7 +48,7 @@ submit.addEventListener("click", () => {
   };
 
   // Count
-  if ((title.value != "", price.value != "")) {
+  if (title.value != "" && price.value != "") {
     if (mood === "create") {
       if (newPro.count > 1) {
         for (let i = 0; i < newPro.count; i++) {
@@ -62,6 +62,8 @@ submit.addEventListener("click", () => {
       mood = "create";
       count.style.display = "block";
     }
+  } else {
+    alert("ممنوع انشاء منتج بدون اسم وسعر");
   }
   localStorage.setItem("Product", JSON.stringify(dataPro));
 
