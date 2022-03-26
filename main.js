@@ -1,5 +1,8 @@
 // Get Elements
 const title = document.getElementById("title");
+const proImg = document.querySelector(".inpImg");
+const proImgInp = document.querySelector(`.inpImg input[type="file"]`);
+const parentDiv = document.getElementById("result");
 const price = document.getElementById("price");
 const taxes = document.getElementById("taxes");
 const ads = document.getElementById("ads");
@@ -12,7 +15,7 @@ const tbody = document.querySelector(".tbody");
 
 let mood = "create";
 let tmp;
-
+let globalImg;
 // Get total
 function getTotal() {
   if (price.value != "") {
@@ -23,6 +26,15 @@ function getTotal() {
     total.innerHTML = "";
     total.style.background = "#a00d02";
   }
+}
+
+function getImagePreview(event) {
+  let image = URL.createObjectURL(event.target.files[0]);
+  let newImg = document.createElement("img");
+  parentDiv.innerHTML = "";
+  newImg.src = image;
+  globalImg = `<img src="${image}"/>`;
+  parentDiv.innerHTML = globalImg;
 }
 
 // Create
@@ -38,6 +50,7 @@ if (localStorage.Product != null) {
 submit.addEventListener("click", () => {
   let newPro = {
     title: title.value,
+    proImg: globalImg,
     price: price.value,
     taxes: taxes.value,
     ads: ads.value,
@@ -81,6 +94,7 @@ function clearData() {
   count.value = "";
   category.value = "";
   total.innerHTML = "";
+  parentDiv.innerHTML = "";
 }
 
 // Read
@@ -95,6 +109,7 @@ function showData() {
     <tr>
     <td>${i}</td>
     <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].proImg}</td>
     <td>${dataPro[i].price}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
@@ -153,6 +168,7 @@ function updateData(i) {
   discount.value = dataPro[i].discount;
   count.value = dataPro[i].count;
   category.value = dataPro[i].category;
+  parentDiv.innerHTML = dataPro[i].proImg;
   // total.innerHTML = dataPro[i].total;
   // Update Submit Name From (انشاء) to (تحديث)
   submit.innerHTML = "تحديث";

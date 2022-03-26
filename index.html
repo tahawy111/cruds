@@ -49,8 +49,19 @@
           />
           <small id="total"></small>
         </div>
-        <input type="number" placeholder="العدد" id="count" />
-        <input type="text" placeholder="الفئة" id="category" />
+        <div class="line">
+          <input type="number" placeholder="العدد" id="count" />
+          <input type="text" placeholder="الفئة" id="category" />
+          <button class="inpImg">
+            <label for="file">ارفع صورة المنتج</label>
+            <input
+              type="file"
+              onchange="getImagePreview(event)"
+              accept="images/png"
+            />
+          </button>
+          <div id="result"></div>
+        </div>
         <button id="submit">انشاء</button>
       </div>
       <div class="outputs">
@@ -82,6 +93,7 @@
           <tr>
             <th>Id</th>
             <th>اسم المنتج</th>
+            <th>صورة المنتج</th>
             <th>السعر</th>
             <th>الضريبة</th>
             <th>الاعلانات</th>
