@@ -16,8 +16,8 @@ const tbody = document.querySelector(".tbody");
 
 let mood = "create";
 let tmp;
-let globalImg;
 let newBarcode;
+let globalImg;
 
 // Get total
 function getTotal() {
@@ -37,6 +37,7 @@ function getImagePreview(event) {
   parentDiv.innerHTML = "";
   newImg.src = image;
   globalImg = `<img class="img_pro" src="${image}"/>`;
+  parentDiv.innerHTML = globalImg;
 }
 
 // Create
@@ -199,9 +200,12 @@ function getSearchMood(id) {
   } else if (id == "searchCategory") {
     searchMood = "category";
     search.placeholder = "البحث بالفئة";
-  } else {
+  } else if (id == "searchPrice") {
     searchMood = "price";
-    search.placeholder = "البحث بالفئة";
+    search.placeholder = "البحث بالسعر";
+  } else {
+    searchMood = "barcode";
+    search.placeholder = "البحث بالباركود";
   }
   search.focus();
   search.value = "";
@@ -214,8 +218,9 @@ function searchData(value) {
         table += `
     <tr>
     <td>${i}</td>
-    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].proImg}</td>
     <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].barcode}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
             <td>${dataPro[i].discount}</td>
@@ -227,14 +232,15 @@ function searchData(value) {
             `;
       }
     }
-  } else if (searchMood == "category") {
+  } else if (searchMood == "price") {
     for (let i = 0; i < dataPro.length; i++) {
-      if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
+      if (dataPro[i].price.toLowerCase().includes(value.toLowerCase())) {
         table += `
     <tr>
     <td>${i}</td>
-    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].proImg}</td>
     <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].barcode}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
             <td>${dataPro[i].discount}</td>
@@ -251,8 +257,9 @@ function searchData(value) {
       table += `
     <tr>
     <td>${i}</td>
-    <td>${dataPro[i].title}</td>
+    <td>${dataPro[i].proImg}</td>
     <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].barcode}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
             <td>${dataPro[i].discount}</td>
@@ -265,12 +272,13 @@ function searchData(value) {
     }
   } else {
     for (let i = 0; i < dataPro.length; i++) {
-      if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
+      if (dataPro[i].barcode.includes(value)) {
         table += `
    <tr>
    <td>${i}</td>
-   <td>${dataPro[i].title}</td>
-   <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].proImg}</td>
+    <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].barcode}</td>
            <td>${dataPro[i].taxes}</td>
            <td>${dataPro[i].ads}</td>
            <td>${dataPro[i].discount}</td>
@@ -283,6 +291,7 @@ function searchData(value) {
       }
     }
   }
+
   showData();
 
   document.querySelector(`#tbody`).innerHTML = table;
