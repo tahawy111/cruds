@@ -132,7 +132,7 @@ td {
 }
 
 .line input {
-  width: 40%;
+  width: 25%;
 }
 .line button.inpImg input[type="file"] {
   position: absolute;
@@ -164,4 +164,9 @@ button.inpImg:hover {
 #result {
   display: flex;
   justify-content: center;
+}
+.img_pro {
+  width: 200px;
+  border: 4px solid #fff;
+  border-radius: 5px;
 }

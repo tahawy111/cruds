@@ -10,12 +10,15 @@ const discount = document.getElementById("discount");
 const total = document.getElementById("total");
 const count = document.getElementById("count");
 const category = document.getElementById("category");
+const barcode = document.getElementById("barcode");
 const submit = document.getElementById("submit");
 const tbody = document.querySelector(".tbody");
 
 let mood = "create";
 let tmp;
 let globalImg;
+let newBarcode;
+
 // Get total
 function getTotal() {
   if (price.value != "") {
@@ -33,8 +36,7 @@ function getImagePreview(event) {
   let newImg = document.createElement("img");
   parentDiv.innerHTML = "";
   newImg.src = image;
-  globalImg = `<img src="${image}"/>`;
-  parentDiv.innerHTML = globalImg;
+  globalImg = `<img class="img_pro" src="${image}"/>`;
 }
 
 // Create
@@ -58,6 +60,7 @@ submit.addEventListener("click", () => {
     total: total.innerHTML,
     count: count.value,
     category: category.value,
+    barcode: barcode.value,
   };
 
   // Count
@@ -95,6 +98,7 @@ function clearData() {
   category.value = "";
   total.innerHTML = "";
   parentDiv.innerHTML = "";
+  barcode.value = "";
 }
 
 // Read
@@ -111,6 +115,7 @@ function showData() {
     <td>${dataPro[i].title}</td>
     <td>${dataPro[i].proImg}</td>
     <td>${dataPro[i].price}</td>
+    <td>${dataPro[i].barcode}</td>
             <td>${dataPro[i].taxes}</td>
             <td>${dataPro[i].ads}</td>
             <td>${dataPro[i].discount}</td>
@@ -169,6 +174,7 @@ function updateData(i) {
   count.value = dataPro[i].count;
   category.value = dataPro[i].category;
   parentDiv.innerHTML = dataPro[i].proImg;
+  barcode.value = dataPro[i].barcode;
   // total.innerHTML = dataPro[i].total;
   // Update Submit Name From (انشاء) to (تحديث)
   submit.innerHTML = "تحديث";
@@ -240,7 +246,7 @@ function searchData(value) {
             `;
       }
     }
-  } else {
+  } else if (searchMood == "category") {
     if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
       table += `
     <tr>
@@ -257,9 +263,49 @@ function searchData(value) {
             </tr>
             `;
     }
+  } else {
+    for (let i = 0; i < dataPro.length; i++) {
+      if (dataPro[i].category.toLowerCase().includes(value.toLowerCase())) {
+        table += `
+   <tr>
+   <td>${i}</td>
+   <td>${dataPro[i].title}</td>
+   <td>${dataPro[i].price}</td>
+           <td>${dataPro[i].taxes}</td>
+           <td>${dataPro[i].ads}</td>
+           <td>${dataPro[i].discount}</td>
+           <td>${dataPro[i].total}</td>
+           <td>${dataPro[i].category}</td>
+           <td><button onclick="updateData(${i})" id="update">تحديث</button></td>
+           <td><button onclick="deleteData(${i})" id="delete">حذف</button></td>
+           </tr>
+           `;
+      }
+    }
   }
   showData();
 
   document.querySelector(`#tbody`).innerHTML = table;
 }
-// Clean Data
+// Barcode System
+function getBarcode() {
+  let barcode = "";
+  let interval;
+  document.addEventListener("keydown", (evt) => {
+    if (interval) clearInterval(interval);
+
+    if (evt.code == "Enter") {
+      if (barcode) handeleBarcode(barcode);
+
+      barcode = "";
+      return;
+    }
+    if (evt.code != "Shift") barcode += evt.key;
+    interval = setInterval(() => (barcode = ""), 20);
+    function handeleBarcode(scanned_barcode) {
+      barcode.value = scanned_barcode;
+      newBarcode = scanned_barcode;
+    }
+  });
+}
+getBarcode();
